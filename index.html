@@ -3,6 +3,28 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      html { background: #000; }
+
+      html::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        background: #000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 450ms ease;
+      }
+
+      html.is-loading { overflow: hidden; }
+      html.is-loading::before { opacity: 1; pointer-events: auto; transition: none; }
+      html.is-loading body { visibility: hidden; }
+    </style>
+    <script>
+      document.documentElement.classList.add('is-loading');
+      window.setTimeout(() => document.documentElement.classList.remove('is-loading'), 4000);
+    </script>
     <meta name="description" content="Brodey Bright’s portfolio of game development tools, mods, and web projects.">
     <title>Brodey Bright | Portfolio</title>
     <link rel="icon" type="image/svg+xml" href="./src/assets/blood.svg">
@@ -10,7 +32,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&amp;display=swap">
     <link rel="stylesheet" href="./src/styles/index.css">
-    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="./src/main.js" onerror="document.documentElement.classList.remove('is-loading')"></script>
   </head>
   <body id="top" tabindex="-1">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -33,9 +55,15 @@
 
     <main id="main" class="container">
       <section class="intro" aria-labelledby="intro-heading">
-        <h1 id="intro-heading">Brodey Bright</h1>
-        <p>Software Engineer &amp; Game Developer</p>
-        <a href="#work">View my work</a>
+        <div>
+          <h1 id="intro-heading">Brodey Bright</h1>
+          <p>Software Engineer &amp; Game Developer</p>
+          <a href="#work">View my work</a>
+        </div>
+        <div class="hero-splatter" aria-hidden="true">
+          <img src="./src/assets/blood.svg" width="512" height="512" alt="">
+          <canvas></canvas>
+        </div>
       </section>
 
       <section id="work" aria-labelledby="work-heading" tabindex="-1">
@@ -65,7 +93,7 @@
               <h3>Theta</h3>
               <p class="work-role">Gameplay &amp; Networking Programmer</p>
               <p>A private multiplayer first-person sandbox I’m building in Godot. Players can spawn, grab, and throw physics props, interact with Source-style doors, and use weapons with dedicated first- and third-person animations. I built host-authoritative multiplayer with client prediction for responsive movement and shared physics, plus Godot editor tools for creating weapons and configuring their animations.</p>
-              <button class="theta-button theta-open" type="button" aria-haspopup="dialog" hidden>Try the physics demo</button>
+              <button class="theta-button theta-open" type="button" aria-haspopup="dialog" hidden>Play with a 3D crate stack</button>
             </div>
           </article>
           <article class="work-card">
@@ -109,12 +137,11 @@
 
     <dialog class="theta-demo" aria-labelledby="theta-demo-title" aria-describedby="theta-instructions" data-lenis-prevent>
       <div class="theta-demo-header">
-        <h2 id="theta-demo-title">Theta prop stack</h2>
+        <h2 id="theta-demo-title">3D crate stack</h2>
         <form method="dialog">
           <button class="theta-button" type="submit" autofocus>Close</button>
         </form>
       </div>
-      <p id="theta-instructions">Drag a crate out of the stack or press Pull a crate.</p>
       <div class="theta-viewport">
         <canvas aria-hidden="true"></canvas>
         <p class="theta-status" role="status">Loading physics demo…</p>

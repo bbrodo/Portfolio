@@ -64,8 +64,52 @@ main > section {
 }
 
 main > .intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(12rem, 38%);
+  align-items: center;
+  gap: clamp(1rem, 4vw, 2.5rem);
   padding-block: clamp(4rem, 12vw, 8rem);
   border: 0;
+}
+
+.hero-splatter {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.hero-splatter img,
+.hero-splatter canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-splatter img {
+  box-sizing: border-box;
+  padding: 9%;
+}
+
+.hero-splatter canvas,
+.hero-splatter.is-rendering img {
+  visibility: hidden;
+}
+
+.hero-splatter.is-rendering canvas {
+  visibility: visible;
+}
+
+@media (max-width: 42rem) {
+  main > .intro {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-splatter {
+    width: min(100%, 16rem);
+    justify-self: center;
+  }
 }
 
 h1,

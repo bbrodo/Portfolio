@@ -10,6 +10,7 @@ function configureScrolling() {
   lenis = new Lenis({
     lerp: 0.12,
     smoothWheel: true,
+    virtualScroll: () => !document.documentElement.classList.contains('is-loading'),
     syncTouch: mobileLayout.matches,
     syncTouchLerp: 0.13,
     touchInertiaExponent: 1.25,
