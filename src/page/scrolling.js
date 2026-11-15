@@ -24,15 +24,20 @@ function navigateToSection(event) {
   if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
 
   const link = event.target.closest('a[href^="#"]');
-  if (!link || link.classList.contains('skip-link')) return;
+  if (!link) return;
 
   const target = document.getElementById(link.hash.slice(1));
   if (!target) return;
 
   event.preventDefault();
-  if (location.hash !== link.hash) history.pushState(null, '', link.hash);
+  if (location.hash) {
+    history.replaceState(history.state, '', location.pathname + location.search);
+  }
   target.focus({ preventScroll: true });
-  lenis.scrollTo(target, mobileLayout.matches ? mobileNavigation : undefined);
+  const navigation = link.classList.contains('skip-link')
+    ? { immediate: true }
+    : mobileLayout.matches ? mobileNavigation : undefined;
+  lenis.scrollTo(target, navigation);
 }
 
 const tick = (seconds) => lenis.raf(seconds * 1000);
