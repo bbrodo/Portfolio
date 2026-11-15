@@ -1,24 +1,22 @@
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import { gsap } from 'gsap';
+import { mobileLayout } from './scroll-mode.js';
 
-const mobileLayout = window.matchMedia('(max-width: 767px), (hover: none), (pointer: coarse)');
 let lenis;
 
 function configureScrolling() {
   lenis?.destroy();
+  lenis = undefined;
+  if (mobileLayout.matches) return;
+
   lenis = new Lenis({
     lerp: 0.12,
     smoothWheel: true,
     virtualScroll: () => !document.documentElement.classList.contains('is-loading'),
-    syncTouch: mobileLayout.matches,
-    syncTouchLerp: 0.13,
-    touchInertiaExponent: 1.25,
     respectReducedMotion: false,
   });
 }
-
-const mobileNavigation = { duration: 0.55, easing: gsap.parseEase('sine.inOut') };
 
 function navigateToSection(event) {
   if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -34,13 +32,12 @@ function navigateToSection(event) {
     history.replaceState(history.state, '', location.pathname + location.search);
   }
   target.focus({ preventScroll: true });
-  const navigation = link.classList.contains('skip-link')
-    ? { immediate: true }
-    : mobileLayout.matches ? mobileNavigation : undefined;
-  lenis.scrollTo(target, navigation);
+  const immediate = link.classList.contains('skip-link');
+  if (lenis) lenis.scrollTo(target, { immediate });
+  else target.scrollIntoView({ behavior: immediate ? 'instant' : 'smooth' });
 }
 
-const tick = (seconds) => lenis.raf(seconds * 1000);
+const tick = (seconds) => lenis?.raf(seconds * 1000);
 
 configureScrolling();
 mobileLayout.addEventListener('change', configureScrolling);
@@ -52,6 +49,6 @@ if (import.meta.hot) {
     gsap.ticker.remove(tick);
     mobileLayout.removeEventListener('change', configureScrolling);
     document.removeEventListener('click', navigateToSection);
-    lenis.destroy();
+    lenis?.destroy();
   });
 }

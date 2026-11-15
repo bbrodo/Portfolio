@@ -4,6 +4,7 @@ import {
 } from 'three';
 import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js';
 import { contours } from 'd3-contour';
+import { mobileLayout } from './scroll-mode.js';
 
 const hero = document.querySelector('.hero-splatter');
 const image = hero.querySelector('img');
@@ -65,7 +66,6 @@ async function mount() {
   if (!context) return;
 
   const renderer = new WebGLRenderer({ canvas, context, alpha: true, antialias: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   const scene = new Scene();
   const camera = new OrthographicCamera(-1.45, 1.45, 1.45, -1.45, 0.1, 20);
   camera.position.z = 5;
@@ -93,11 +93,16 @@ async function mount() {
     hero.classList.add('is-rendering');
   }
 
-  const resize = () => renderer.setSize(hero.clientWidth, hero.clientHeight, false);
+  const resize = () => {
+    const pixelRatio = Math.min(window.devicePixelRatio, mobileLayout.matches ? 1.25 : 2);
+    if (renderer.getPixelRatio() !== pixelRatio) renderer.setPixelRatio(pixelRatio);
+    renderer.setSize(hero.clientWidth, hero.clientHeight, false);
+  };
   resize();
   draw(performance.now());
   const sizing = new ResizeObserver(resize);
   sizing.observe(hero);
+  mobileLayout.addEventListener('change', resize);
   const visibility = new IntersectionObserver(([entry]) => {
     lastFrame = undefined;
     renderer.setAnimationLoop(entry.isIntersecting ? draw : null);
@@ -108,6 +113,7 @@ async function mount() {
     hero.classList.remove('is-rendering');
     visibility.disconnect();
     sizing.disconnect();
+    mobileLayout.removeEventListener('change', resize);
     renderer.setAnimationLoop(null);
   }, { once: true });
 
@@ -115,6 +121,7 @@ async function mount() {
     import.meta.hot.dispose(() => {
       visibility.disconnect();
       sizing.disconnect();
+      mobileLayout.removeEventListener('change', resize);
       renderer.setAnimationLoop(null);
       relief.geometry.dispose();
       material.dispose();

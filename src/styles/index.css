@@ -107,6 +107,7 @@ main > .intro {
   }
 
   .hero-splatter {
+    grid-row: 1;
     width: min(100%, 16rem);
     justify-self: center;
   }

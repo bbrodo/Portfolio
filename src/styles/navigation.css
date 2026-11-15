@@ -69,76 +69,19 @@
   line-height: 1;
 }
 
-.nav-toggle {
-  display: none;
-}
-
 @media (max-width: 680px) {
   .site-header {
-    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 
   .site-header nav {
     flex-wrap: wrap;
-    gap: 0.5rem;
+    justify-content: flex-end;
+    gap: 0 clamp(0.75rem, 4vw, 1.25rem);
   }
 
-  .has-mobile-menu .nav-toggle {
-    display: grid;
-    place-content: center;
-    gap: 4px;
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    color: var(--text);
-    cursor: pointer;
-  }
-
-  .nav-toggle span {
-    display: block;
-    width: 18px;
-    height: 2px;
-    background: currentColor;
-  }
-
-  .nav-toggle[aria-expanded="true"] span:first-child { transform: translateY(6px) rotate(45deg); }
-  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-  .nav-toggle[aria-expanded="true"] span:last-child { transform: translateY(-6px) rotate(-45deg); }
-
-  .has-mobile-menu nav {
-    display: none;
-    position: absolute;
-    inset: 100% 0 auto auto;
-    box-sizing: border-box;
-    width: min(240px, 100%);
-    max-height: calc(100dvh - 4.25rem);
-    overflow-y: auto;
-    flex-flow: column nowrap;
-    align-items: stretch;
-    gap: 0;
-    padding: 8px;
-    border: 1px solid var(--divider);
-    background: var(--background);
-  }
-
-  .has-mobile-menu .nav-toggle[aria-expanded="true"] + nav {
-    display: flex;
-  }
-
-  .has-mobile-menu nav a {
-    display: flex;
-    align-items: center;
-    min-height: 44px;
-    padding: 0 12px;
-  }
-
-  .has-mobile-menu nav a:focus-visible {
-    outline-offset: -2px;
-  }
-
-  .has-mobile-menu .nav-indicator {
-    display: none;
+  .site-header nav a {
+    padding-block: 0.875rem;
+    letter-spacing: 0;
   }
 }
