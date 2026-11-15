@@ -36,8 +36,13 @@ function scrollProjects(button, direction) {
 
   if (target === undefined) return;
 
-  animation?.kill();
   destination = target;
+  if (animation) {
+    animation.resetTo('x', target, projects.scrollLeft);
+    updateControls();
+    return;
+  }
+
   projects.classList.add('is-scrolling');
   const position = { x: projects.scrollLeft };
   animation = gsap.to(position, {
