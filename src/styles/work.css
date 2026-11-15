@@ -1,0 +1,94 @@
+.work-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.work-controls:not([hidden]) {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.work-controls button {
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--divider);
+  background: var(--background);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.work-controls button[aria-disabled="true"] {
+  color: var(--focus);
+  cursor: default;
+}
+
+.work-controls button:focus-visible,
+.work-projects:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.work-projects {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 72%;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.work-projects::-webkit-scrollbar {
+  display: none;
+}
+
+.work-projects.is-scrolling {
+  scroll-snap-type: none;
+}
+
+.work-card {
+  min-width: 0;
+  border: 1px solid var(--divider);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.work-image {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-bottom: 1px solid var(--divider);
+  background: #111;
+}
+
+.work-image img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+}
+
+.work-card-content {
+  padding: clamp(1rem, 3vw, 1.75rem);
+}
+
+.work-card-content p {
+  margin-bottom: 0;
+}
+
+.work-role {
+  margin-top: 0.35rem;
+  color: var(--link);
+  font-weight: 700;
+}
+
+@media (max-width: 40rem) {
+  .work-projects {
+    grid-auto-columns: 88%;
+  }
+}

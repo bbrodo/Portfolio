@@ -3,16 +3,28 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A personal portfolio of selected projects.">
-    <title>Portfolio</title>
+    <meta name="description" content="Brodey Bright’s portfolio of game development tools, mods, and web projects.">
+    <title>Brodey Bright | Portfolio</title>
+    <link rel="icon" type="image/svg+xml" href="./src/assets/blood.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&amp;display=swap">
     <link rel="stylesheet" href="./src/styles/index.css">
     <script type="module" src="./src/main.js"></script>
   </head>
-  <body id="top">
+  <body id="top" tabindex="-1">
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="container site-header">
-      <a href="#top">Brodey Bright</a>
-      <nav aria-label="Main navigation">
+      <a class="site-name" href="#top" aria-label="Brodey Bright — back to top">
+        <img src="./src/assets/blood.svg" width="44" height="44" alt="">
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-controls="main-navigation" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+      <nav id="main-navigation" aria-label="Main navigation">
+        <a href="#top">Intro</a>
         <a href="#work">Work</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
@@ -22,29 +34,95 @@
     <main id="main" class="container">
       <section class="intro" aria-labelledby="intro-heading">
         <h1 id="intro-heading">Brodey Bright</h1>
-        <p>Software Engineer & Game Developer</p>
+        <p>Software Engineer &amp; Game Developer</p>
         <a href="#work">View my work</a>
       </section>
 
-      <section id="work" aria-labelledby="work-heading">
-        <h2 id="work-heading">Selected work</h2>
-        <!-- Duplicate this article for each project. -->
-        <article>
-          <h3>Project title</h3>
-          <p>Describe what you made, your role, and the outcome.</p>
-        </article>
+      <section id="work" aria-labelledby="work-heading" tabindex="-1">
+        <div class="work-heading">
+          <h2 id="work-heading">Work / Projects</h2>
+          <div class="work-controls" hidden>
+            <button type="button" aria-label="Scroll to previous project" aria-controls="work-projects">←</button>
+            <button type="button" aria-label="Scroll to next project" aria-controls="work-projects">→</button>
+          </div>
+        </div>
+        <div id="work-projects" class="work-projects" role="region" aria-label="Projects" tabindex="0" data-lenis-prevent-horizontal>
+          <article class="work-card">
+            <div class="work-image">
+              <img src="./src/assets/work/wrought-flesh.png" width="1920" height="1080" alt="First-person gameplay in Wrought Flesh during the Terraworm boss fight">
+            </div>
+            <div class="work-card-content">
+              <h3><a href="https://store.steampowered.com/app/1762010/Wrought_Flesh/">Wrought Flesh</a></h3>
+              <p class="work-role">Contract Gameplay Programmer</p>
+              <p>Contributed to the development and optimisation of a commercial first-person shooter, implementing object pooling for combat effects and projectiles, improving enemy AI performance, and resolving gameplay, physics, UI, and save-system bugs.</p>
+            </div>
+          </article>
+          <article class="work-card">
+            <div class="work-image">
+              <img src="./src/assets/work/theta-tower.png" width="1920" height="1080" alt="First-person gameplay in Theta showing another player standing on a tower of stacked props">
+            </div>
+            <div class="work-card-content">
+              <h3>Theta</h3>
+              <p class="work-role">Gameplay &amp; Networking Programmer</p>
+              <p>A private multiplayer first-person sandbox I’m building in Godot. Players can spawn, grab, and throw physics props, interact with Source-style doors, and use weapons with dedicated first- and third-person animations. I built host-authoritative multiplayer with client prediction for responsive movement and shared physics, plus Godot editor tools for creating weapons and configuring their animations.</p>
+              <button class="theta-button theta-open" type="button" aria-haspopup="dialog" hidden>Try the physics demo</button>
+            </div>
+          </article>
+          <article class="work-card">
+            <div class="work-image">
+              <img src="./src/assets/work/modded-flesh.png" width="256" height="256" alt="ModdedFlesh’s pixel-art heart logo">
+            </div>
+            <div class="work-card-content">
+              <h3><a href="https://github.com/bbrodo/ModdedFlesh">ModdedFlesh</a></h3>
+              <p class="work-role">Mod Developer</p>
+              <p>A Wrought Flesh mod aimed at fixing bugs and improving performance, distributed as an xdelta patch for players who own the base game.</p>
+              <p>After seeing the mod, the original creator hired me as a contract gameplay programmer on Wrought Flesh.</p>
+            </div>
+          </article>
+          <article class="work-card">
+            <div class="work-image">
+              <img src="./src/assets/work/wrought-flesh-patcher.png" width="782" height="632" alt="Wrought Flesh Patcher window showing a verified ModdedFlesh patch ready to apply">
+            </div>
+            <div class="work-card-content">
+              <h3><a href="https://github.com/bbrodo/WroughtFleshPatcher">Wrought Flesh Patcher</a></h3>
+              <p class="work-role">Desktop Tool Developer</p>
+              <p>A Python desktop app for Windows that applies xdelta mod patches to Wrought Flesh. It verifies file hashes, backs up the original game file, and lets players restore it.</p>
+            </div>
+          </article>
+        </div>
       </section>
 
-      <section id="about" aria-labelledby="about-heading">
+      <section id="about" aria-labelledby="about-heading" tabindex="-1">
         <h2 id="about-heading">About</h2>
-        <p>Add a short bio with your background and the kind of work you enjoy.</p>
+        <p>I'm a software and game developer based in Geelong, Australia. My work spans game development, software engineering, and web development, including professional experience contributing to commercial games.</p>
+        <p>I studied web development at Coder Academy in 2024. I’m currently working towards a Bachelor of Computer Science.</p>
       </section>
 
-      <section id="contact" aria-labelledby="contact-heading">
+      <section id="contact" aria-labelledby="contact-heading" tabindex="-1">
         <h2 id="contact-heading">Contact</h2>
-        <!-- Replace the example address with your own. -->
-        <a href="mailto:hello@example.com">hello@example.com</a>
+        <ul>
+          <li><a href="https://github.com/bbrodo">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/brodeybright/">LinkedIn</a></li>
+        </ul>
       </section>
     </main>
+
+    <dialog class="theta-demo" aria-labelledby="theta-demo-title" aria-describedby="theta-instructions" data-lenis-prevent>
+      <div class="theta-demo-header">
+        <h2 id="theta-demo-title">Theta prop stack</h2>
+        <form method="dialog">
+          <button class="theta-button" type="submit" autofocus>Close</button>
+        </form>
+      </div>
+      <p id="theta-instructions">Drag a crate out of the stack or press Pull a crate.</p>
+      <div class="theta-viewport">
+        <canvas aria-hidden="true"></canvas>
+        <p class="theta-status" role="status">Loading physics demo…</p>
+      </div>
+      <div class="theta-actions">
+        <button class="theta-button theta-pull" type="button" disabled>Pull a crate</button>
+        <button class="theta-button theta-reset" type="button" disabled>Reset stack</button>
+      </div>
+    </dialog>
   </body>
 </html>
